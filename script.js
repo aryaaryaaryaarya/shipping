@@ -22,7 +22,7 @@ const lowReactions = {
   doom: [
     "yo what",
     "absolutely not. next.",
-    "my visor says no.",
+    "nah that's a whole no :3",
   ],
 };
 
@@ -141,6 +141,15 @@ function pickRandom(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+function shuffleArray(arr) {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
 function showScreen(screen) {
   [splash, avatarsScreen, quizScreen, resultsScreen].forEach((el) => {
     el.classList.add("hidden");
@@ -155,7 +164,7 @@ function renderQuestion() {
   quizQuestion.innerHTML = q.text;
   quizOptions.innerHTML = "";
 
-  q.options.forEach((option) => {
+  shuffleArray(q.options).forEach((option) => {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "quiz-option";
@@ -190,7 +199,7 @@ function showResults() {
   } else {
     jayReaction.textContent = pickRandom(lowReactions.jay);
     doomReaction.textContent = pickRandom(lowReactions.doom);
-    resultsVerdict.textContent = "💀 not shipped :3 delete the evidence 💀";
+    resultsVerdict.textContent = "⛓ not shipped :3 delete the evidence ⛓";
   }
 
   showScreen(resultsScreen);
